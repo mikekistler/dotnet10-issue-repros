@@ -1,0 +1,6 @@
+@validation_record_types_HostAddress = http://localhost:5236
+
+GET {{validation_record_types_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
