@@ -1,6 +1,6 @@
 @validation_from_services_HostAddress = http://localhost:5005
 
-GET {{validation_from_services_HostAddress}}/weatherforecast/
+GET {{validation_from_services_HostAddress}}/weatherforecast?count=6
 Accept: application/json
 
 ###
