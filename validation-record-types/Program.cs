@@ -1,4 +1,4 @@
-// #define USE_RECORD
+#define USE_RECORD
 
 using System.ComponentModel.DataAnnotations;
 
