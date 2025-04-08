@@ -1,0 +1,6 @@
+@validation_generic_types_HostAddress = http://localhost:5046
+
+GET {{validation_generic_types_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
