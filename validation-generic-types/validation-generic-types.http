@@ -1,6 +1,11 @@
-@validation_generic_types_HostAddress = http://localhost:5046
+@HostAddress = http://localhost:5046
 
-GET {{validation_generic_types_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{HostAddress}}/dict/
+content-type: application/json
+
+{
+    "foo": "bar",
+    "bar": "baz"
+}
 
 ###
