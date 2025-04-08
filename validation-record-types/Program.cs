@@ -1,8 +1,14 @@
+// #define USE_RECORD
+
+using System.ComponentModel.DataAnnotations;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddValidation();
 
 var app = builder.Build();
 
@@ -14,28 +20,30 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+app.MapPost("/todos", (Todo todo) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    return Results.Created($"/todos/{todo.Id}", todo);
+});
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+#if USE_RECORD
+record Todo(
+    int Id,
+    [property: Required]
+    [property: StringLength(100, MinimumLength = 3)]
+    string? Title,
+    bool IsComplete
+) {}
+#else
+class Todo
 {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    public int Id { get; init; }
+
+    [Required]
+    [StringLength(100, MinimumLength = 3)]
+    public string? Title { get; init; }
+
+    public bool IsComplete { get; init; }
 }
+#endif
