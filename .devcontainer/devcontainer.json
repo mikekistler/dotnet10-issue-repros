@@ -30,6 +30,7 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "dotnet restore",
+	,"postCreateCommand": "echo 'export PROMPT_DIRTRIM=1' >> ~/.bashrc"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
