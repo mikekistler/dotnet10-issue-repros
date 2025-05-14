@@ -5,22 +5,102 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/weatherforecast": {
+    "/foo": {
       "get": {
         "tags": [
-          "xmldoc-for-asparameters"
+          "Program"
         ],
-        "operationId": "GetWeatherForecast",
+        "summary": "Get a foo",
+        "description": "Get a foo with a `foo` parameter.",
+        "operationId": "GetFoo",
+        "parameters": [
+          {
+            "name": "foo",
+            "in": "query",
+            "description": "This is a foo",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bar": {
+      "get": {
+        "tags": [
+          "Program"
+        ],
+  "summary": "Get a bar",
+  "description": "Get a bar with a `bar` parameter.",
+  "operationId": "GetBar",
+  "parameters": [
+    {
+      "name": "Bar",
+      "in": "query",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "Baz",
+      "in": "query",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/baz": {
+      "post": {
+        "tags": [
+          "Program"
+        ],
+        "summary": "Post a baz",
+        "description": "Post a baz with a `baz` parameter.",
+        "operationId": "PostBaz",
+        "requestBody": {
+          "description": "Parameters for Baz",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BarBaz"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -31,39 +111,22 @@
   },
   "components": {
     "schemas": {
-      "WeatherForecast": {
-        "required": [
-          "date",
-          "temperatureC",
-          "summary"
-        ],
+      "BarBaz": {
         "type": "object",
         "properties": {
-          "date": {
-            "type": "string",
-            "format": "date"
-          },
-          "temperatureC": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
-            "format": "int32"
-          },
-          "summary": {
+          "bar": {
             "type": [
               "null",
               "string"
-            ]
+            ],
+            "description": "This is a bar"
           },
-          "temperatureF": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
+          "baz": {
             "type": [
-              "integer",
+              "null",
               "string"
             ],
-            "format": "int32"
+            "description": "This is a baz"
           }
         }
       }
@@ -71,7 +134,7 @@
   },
   "tags": [
     {
-      "name": "xmldoc-for-asparameters"
+      "name": "Program"
     }
   ]
 }
