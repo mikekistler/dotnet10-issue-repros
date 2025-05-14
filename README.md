@@ -16,3 +16,4 @@ Minimal repros for issues found in .NET 10 previews
 
 ## xmldoc-for-asparameters
 
+[XML Doc comments on properties of an AsParameters class aren't included in the generated OpenAPI doc](https://github.com/dotnet/aspnetcore/issues/61936)
