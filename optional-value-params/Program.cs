@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,28 +16,31 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+app.MapGet("/foo", (int count = 5) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    return TypedResults.Ok($"Count is {count}");
+});
 
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/bar", ([AsParameters] BarParams barParams) =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    return TypedResults.Ok($"Count is {barParams.Count}");
+});
+
+app.MapGet("baz", ([AsParameters] BazParams bazParams) =>
+{
+    return TypedResults.Ok($"Count is {bazParams.Count}");
+});
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+public class BarParams
 {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    [DefaultValue(5)]
+    public int Count { get; set; } = 5;
+}
+
+public class BazParams(int Count = 5)
+{
+    [DefaultValue(5)]
+    public int Count { get; init; } = Count;
 }

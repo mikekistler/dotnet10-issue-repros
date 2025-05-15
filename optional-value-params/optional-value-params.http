@@ -1,6 +1,16 @@
-@optional_value_params_HostAddress = http://localhost:5180
+@HostAddress = http://localhost:5180
 
-GET {{optional_value_params_HostAddress}}/weatherforecast/
+GET {{HostAddress}}/foo
+Accept: application/json
+
+###
+
+GET {{HostAddress}}/bar
+Accept: application/json
+
+###
+
+GET {{HostAddress}}/baz
 Accept: application/json
 
 ###
