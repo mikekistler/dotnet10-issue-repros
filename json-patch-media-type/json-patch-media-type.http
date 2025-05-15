@@ -1,6 +1,30 @@
-@json_patch_media_type_HostAddress = http://localhost:5056
+@HostAddress = http://localhost:5056
 
-GET {{json_patch_media_type_HostAddress}}/weatherforecast/
+GET {{HostAddress}}/openapi/v1.json
 Accept: application/json
 
 ###
+
+PATCH {{HostAddress}}/customers/1
+Content-Type: application/json-patch+json
+
+[
+  {
+    "op": "replace",
+    "path": "/name",
+    "value": "Jane Doe"
+  }
+]
+
+###
+
+PATCH {{HostAddress}}/customers/1
+Content-Type: application/json
+
+[
+  {
+    "op": "replace",
+    "path": "/name",
+    "value": "Alfred E. Neuman"
+  }
+]

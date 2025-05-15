@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.JsonPatch.SystemTextJson;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,28 +17,38 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+var customers = new List<Customer>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    new Customer { Id = 1, Name = "John Doe", Email = "johndoe@contoso.com" }
 };
 
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/customers/{id}", Results<Ok<Customer>, NotFound> (int id) =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    var customer = customers.FirstOrDefault(c => c.Id == id);
+    if (customer == null)
+    {
+        return TypedResults.NotFound();
+    }
+    return TypedResults.Ok(customer);
+});
+
+
+app.MapPatch("/customers/{id}", Results<Ok<Customer>, NotFound> (int id, JsonPatchDocument<Customer> patchDoc) =>
+{
+    var customer = customers.FirstOrDefault(c => c.Id == id);
+    if (customer == null)
+    {
+        return TypedResults.NotFound();
+    }
+    patchDoc.ApplyTo(customer);
+    return TypedResults.Ok(customer);
+});
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+public class Customer
 {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    public int Id { get; set; }
+    public string? Name { get; set; }
+    public string? Email { get; set; }
 }
