@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xmldoc-for-asparameters", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "optional-value-params", "optional-value-params\optional-value-params.csproj", "{DE2AA629-CBDF-4725-8000-F388BE2179C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "json-patch-media-type", "json-patch-media-type\json-patch-media-type.csproj", "{EC00EC41-0C73-4C43-8D33-E1EBB3962D7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{DE2AA629-CBDF-4725-8000-F388BE2179C7}.Release|x64.Build.0 = Release|Any CPU
 		{DE2AA629-CBDF-4725-8000-F388BE2179C7}.Release|x86.ActiveCfg = Release|Any CPU
 		{DE2AA629-CBDF-4725-8000-F388BE2179C7}.Release|x86.Build.0 = Release|Any CPU
+		{EC00EC41-0C73-4C43-8D33-E1EBB3962D7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC00EC41-0C73-4C43-8D33-E1EBB3962D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC00EC41-0C73-4C43-8D33-E1EBB3962D7B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EC00EC41-0C73-4C43-8D33-E1EBB3962D7B}.Debug|x64.Build.0 = Debug|Any CPU
+		{EC00EC41-0C73-4C43-8D33-E1EBB3962D7B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EC00EC41-0C73-4C43-8D33-E1EBB3962D7B}.Debug|x86.Build.0 = Debug|Any CPU
+		{EC00EC41-0C73-4C43-8D33-E1EBB3962D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC00EC41-0C73-4C43-8D33-E1EBB3962D7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC00EC41-0C73-4C43-8D33-E1EBB3962D7B}.Release|x64.ActiveCfg = Release|Any CPU
+		{EC00EC41-0C73-4C43-8D33-E1EBB3962D7B}.Release|x64.Build.0 = Release|Any CPU
+		{EC00EC41-0C73-4C43-8D33-E1EBB3962D7B}.Release|x86.ActiveCfg = Release|Any CPU
+		{EC00EC41-0C73-4C43-8D33-E1EBB3962D7B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
