@@ -1,4 +1,8 @@
+using System.ComponentModel.DataAnnotations;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddValidation();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -14,28 +18,32 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+app.MapGet("/required-param", (
+    [Required] string? name
+) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    return TypedResults.Ok($"Hello {name}");
+});
 
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/minlength-param", (
+    [MaxLength(5)] string? name
+) =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    return TypedResults.Ok($"Hello {name}");
+});
+
+app.MapGet("/path-param/{name}", (
+    [MaxLength(5)] string? name
+) =>
+{
+    return TypedResults.Ok($"Hello {name}");
+});
+
+app.MapGet("/int-path-param/{id}", (
+    [Range(42,42)] int id
+) =>
+{
+    return TypedResults.Ok($"Hello {id}");
+});
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

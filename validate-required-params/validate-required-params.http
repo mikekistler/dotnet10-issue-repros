@@ -1,6 +1,24 @@
-@validate_required_params_HostAddress = http://localhost:5162
+@HostAddress = http://localhost:5162
 
-GET {{validate_required_params_HostAddress}}/weatherforecast/
+GET {{HostAddress}}/required-param
 Accept: application/json
 
 ###
+
+GET {{HostAddress}}/minlength-param
+Accept: application/json
+
+###
+
+GET {{HostAddress}}/minlength-param?name=Bill
+Accept: application/json
+
+###
+
+GET {{HostAddress}}/path-param/Bill
+Accept: application/json
+
+###
+
+GET {{HostAddress}}/int-path-param/1
+Accept: application/json
