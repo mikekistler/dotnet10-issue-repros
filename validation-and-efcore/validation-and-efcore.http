@@ -1,0 +1,6 @@
+@validation_and_efcore_HostAddress = http://localhost:5251
+
+GET {{validation_and_efcore_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
