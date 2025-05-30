@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 public static class TodoApi
@@ -7,26 +8,26 @@ public static class TodoApi
     {
         var group = routes.MapGroup("/api/todos");
 
-        group.MapGet("/", async (TodoContext db) =>
-            await db.Todos.ToListAsync());
+        group.MapGet("/", async ([AsParameters] TodoServices services) =>
+            await services.Db.Todos.ToListAsync());
 
-        group.MapGet("/{id}", async Task<Results<Ok<Todo>, NotFound>> (int id, TodoContext db) =>
-            await db.Todos.FindAsync(id)
+        group.MapGet("/{id}", async Task<Results<Ok<Todo>, NotFound>> (int id, [AsParameters] TodoServices services) =>
+            await services.Db.Todos.FindAsync(id)
                 is Todo todo
                     ? TypedResults.Ok(todo)
                     : TypedResults.NotFound());
 
-        group.MapPost("/", async (Todo todo, TodoContext db) =>
+        group.MapPost("/", async (Todo todo, [AsParameters] TodoServices services) =>
         {
-            db.Todos.Add(todo);
-            await db.SaveChangesAsync();
+            services.Db.Todos.Add(todo);
+            await services.Db.SaveChangesAsync();
 
             return TypedResults.Created($"/api/todos/{todo.Id}", todo);
         });
 
-        group.MapPut("/{id}", async Task<Results<NoContent, NotFound>> (int id, Todo inputTodo, TodoContext db) =>
+        group.MapPut("/{id}", async Task<Results<NoContent, NotFound>> (int id, Todo inputTodo, [AsParameters] TodoServices services) =>
         {
-            var todo = await db.Todos.FindAsync(id);
+            var todo = await services.Db.Todos.FindAsync(id);
 
             if (todo is null) return TypedResults.NotFound();
 
@@ -40,21 +41,27 @@ public static class TodoApi
             else if (!inputTodo.IsComplete)
                 todo.CompletedAt = null;
 
-            await db.SaveChangesAsync();
+            await services.Db.SaveChangesAsync();
 
             return TypedResults.NoContent();
         });
 
-        group.MapDelete("/{id}", async Task<Results<NoContent, NotFound>> (int id, TodoContext db) =>
+        group.MapDelete("/{id}", async Task<Results<NoContent, NotFound>> (int id, [AsParameters] TodoServices services) =>
         {
-            if (await db.Todos.FindAsync(id) is Todo todo)
+            if (await services.Db.Todos.FindAsync(id) is Todo todo)
             {
-                db.Todos.Remove(todo);
-                await db.SaveChangesAsync();
+                services.Db.Todos.Remove(todo);
+                await services.Db.SaveChangesAsync();
                 return TypedResults.NoContent();
             }
 
             return TypedResults.NotFound();
         });
     }
+}
+
+public class TodoServices(TodoContext db)
+{
+    [FromServices]
+    public TodoContext Db => db;
 }
