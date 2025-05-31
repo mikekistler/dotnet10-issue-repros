@@ -2,6 +2,22 @@
 
 Minimal repros for issues found in .NET 10 previews
 
+## json-patch-media-type
+
+[JSON Patch request body should use content-type application/json-patch+json](https://github.com/dotnet/aspnetcore/issues/61956)
+
+## optional-value-params
+
+[Request model binding with FromQuery properties AsParameters results in all properties being required.](https://github.com/dotnet/aspnetcore/issues/52881)
+
+## validate-required-params
+
+[Parameter validation in minimal API not working as expected](https://github.com/dotnet/aspnetcore/issues/61995)
+
+## validation-and-efcore
+
+[Minimal API Validation throws when DB Context is passed AsParameters](https://github.com/dotnet/aspnetcore/issues/62173)
+
 ## validation-from-services
 
 [Min API Validation should skip endpoint parameters with FromServices attribute](https://github.com/dotnet/aspnetcore/issues/61392)
@@ -18,6 +34,3 @@ Minimal repros for issues found in .NET 10 previews
 
 [XML Doc comments on properties of an AsParameters class aren't included in the generated OpenAPI doc](https://github.com/dotnet/aspnetcore/issues/61936)
 
-## optional-value-params
-
-[Request model binding with FromQuery properties AsParameters results in all properties being required.](https://github.com/dotnet/aspnetcore/issues/52881)
