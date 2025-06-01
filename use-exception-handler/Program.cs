@@ -17,6 +17,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseExceptionHandler();
+// Workaround suggested in #51888
+// app.UseExceptionHandler(_ => {});
 
 app.MapPost("/weatherforecast", (WeatherForecast forecast) =>
 {
