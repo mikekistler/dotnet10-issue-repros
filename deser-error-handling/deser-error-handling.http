@@ -1,6 +1,49 @@
-@deser_error_handling_HostAddress = http://localhost:5280
+@HostAddress = http://localhost:5280
 
-GET {{deser_error_handling_HostAddress}}/weatherforecast/
+POST {{HostAddress}}/weatherforecast/
 Accept: application/json
+Content-Type: application/json
+
+{
+    "date": "2025-05-31",
+    "temperatureC": 36,
+    "summary": "A hot day!"
+}
+
+###
+
+POST {{HostAddress}}/weatherforecast/
+Accept: application/json
+Content-Type: application/json
+
+{
+    "date": "2025-05-31",
+    "temperatureC": 36,
+    "summary": 42
+}
+
+###
+
+POST {{HostAddress}}/forecast/
+Accept: application/json
+Content-Type: application/json
+
+{
+    "date": "2025-05-31",
+    "temperatureC": 36,
+    "summary": "A hot day!"
+}
+
+###
+
+POST {{HostAddress}}/forecast/
+Accept: application/json
+Content-Type: application/json
+
+{
+    "date": "2025-05-31",
+    "temperatureC": 36,
+    "summary": 42
+}
 
 ###
