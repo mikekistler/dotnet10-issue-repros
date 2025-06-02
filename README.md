@@ -2,6 +2,10 @@
 
 Minimal repros for issues found in .NET 10 previews
 
+## dser-error-handling
+
+[Improve error response for deserialization errors in Minimal APIs](https://github.com/dotnet/aspnetcore/issues/62202)
+
 ## json-patch-media-type
 
 [JSON Patch request body should use content-type application/json-patch+json](https://github.com/dotnet/aspnetcore/issues/61956)
@@ -9,6 +13,10 @@ Minimal repros for issues found in .NET 10 previews
 ## optional-value-params
 
 [Request model binding with FromQuery properties AsParameters results in all properties being required.](https://github.com/dotnet/aspnetcore/issues/52881)
+
+## use-exception-handler
+
+[UseExceptionHandler throws exceptions](https://github.com/dotnet/aspnetcore/issues/62200)
 
 ## validate-required-params
 
